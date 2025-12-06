@@ -10,7 +10,7 @@ export default function QuizCard() {
   const [allAnswers,setAllAnswers] = useState([]);
 
   useEffect(() => {
-      fetch('http://localhost:8080/quotes/todayQuote').then(response => {
+      fetch('https://aqueles-backend-production.up.railway.app/quotes/todayQuote').then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
