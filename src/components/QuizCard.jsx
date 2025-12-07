@@ -1,15 +1,29 @@
 import { useEffect, useState } from 'react'
 import { shuffleArray } from '../../random';
-
+import { userAlreadyRespondedToday } from '../../userResponseCheck';
 
 export default function QuizCard() {
 
-  const [chosenAnswer, setChosenAnwser] = useState(null);
+  const [chosenAnswer, setChosenAnswer] = useState(null);
   const [quote, setQuote] = useState(null);
   const [correctAnswer,setCorrectAnswer] = useState(null);
   const [allAnswers,setAllAnswers] = useState([]);
 
   useEffect(() => {
+      
+    if (userAlreadyRespondedToday()){
+      setQuote(localStorage.getItem("quote"));
+      setChosenAnswer(localStorage.getItem("chosenAnswer"));
+      let savedAnswers = [];
+      savedAnswers.push(localStorage.getItem("answer1"));
+      savedAnswers.push(localStorage.getItem("answer2"));
+      savedAnswers.push(localStorage.getItem("answer3"));
+      savedAnswers.push(localStorage.getItem("answer4"));
+      setCorrectAnswer(localStorage.getItem("correctAnswer"));
+      setAllAnswers(savedAnswers);
+    }
+    else{
+
       fetch('https://aqueles-backend-production.up.railway.app/quotes/todayQuote').then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -31,6 +45,7 @@ export default function QuizCard() {
           // 4. Handle any errors during the fetch or promise chain
           console.error('Fetch error:', error);
         });
+    }
     }, []);
 
   return (
@@ -69,7 +84,18 @@ export default function QuizCard() {
               <button
                 key={answer}
                 disabled={playerChose}
-                onClick={() => setChosenAnwser(answer)}
+                onClick={
+                  () => {setChosenAnswer(answer);
+                        localStorage.setItem("lastAnswerDate",new Date().toISOString());
+                        localStorage.setItem("quote",quote);
+                        localStorage.setItem("chosenAnswer",answer);
+                        localStorage.setItem("answer1",allAnswers[0]);
+                        localStorage.setItem("answer2",allAnswers[1]);
+                        localStorage.setItem("answer3",allAnswers[2]);
+                        localStorage.setItem("answer4",allAnswers[3]);
+                        localStorage.setItem("correctAnswer",correctAnswer);
+                        }
+                }
                 className={`${buttonClass}`}>
                 {answer}
               </button>)
