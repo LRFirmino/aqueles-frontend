@@ -1,3 +1,0 @@
-#TO DO:
-- descobrir pq o QuizCard está enviando duas requisições para o backend
-- arrumar o payload do cadastro e tirar email, é pra ser login só
