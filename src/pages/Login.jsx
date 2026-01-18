@@ -15,8 +15,8 @@ export default function Login() {
 
     const endpoint =
       mode === "login"
-        ? "https://aqueles-backend-production.up.railway.app/auth/login"
-        : "https://aqueles-backend-production.up.railway.app/auth/register";
+        ? "https://aqueles-backend-498097150469.us-central1.run.app/auth/login"
+        : "https://aqueles-backend-498097150469.us-central1.run.app/auth/register";
 
     try {
       const response = await fetch(endpoint, {

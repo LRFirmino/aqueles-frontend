@@ -32,7 +32,7 @@ export default function QuizCard() {
         localStorage.getItem("answer4"),
       ]);
     } else {
-      fetch('https://aqueles-backend-production.up.railway.app/quotes/todayQuote', {
+      fetch('https://aqueles-backend-498097150469.us-central1.run.app/quotes/todayQuote', {
         method: "GET",
         credentials: "include",
         headers: {
